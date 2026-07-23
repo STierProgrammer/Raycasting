@@ -1,0 +1,12 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Iinclude",
+      "-c",
+      "src/main.c"
+    ],
+    "directory": "/home/stierprogrammer/Desktop/programming/games/raycasting",
+    "file": "src/main.c"
+  }
+]
