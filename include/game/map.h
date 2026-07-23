@@ -1,6 +1,6 @@
 #pragma once
-#include <stdint.h>
 #include "raylib.h"
+#include <stdint.h>
 
 typedef struct {
     uint8_t*    map;

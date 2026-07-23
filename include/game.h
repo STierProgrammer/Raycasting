@@ -1,51 +1,16 @@
 #pragma once
 #include "game/map.h"
-#include "raylib.h"
+#include "game/player.h"
 #include <stddef.h>
 #include <stdint.h>
-
-typedef struct {
-    Vector2 loc;
-    Vector2 vel;
-    float   speed;
-} bullet_t;
-
-typedef struct {
-    bullet_t **items;
-    size_t cap, len;
-} bullets_t;
-
-typedef struct
-{
-    Vector2 loc;
-    Vector2 vel;
-    float   speed;
-    float   health;
-    char    name[32];
-} player_t;
-
-typedef struct {
-    Vector2 loc;
-    size_t  namelen;
-    char    name[];
-} update_t;
-
-typedef struct {
-    player_t **items;
-    size_t cap, len;
-} players_t;
-
-typedef struct {
-    players_t players;
-} game_state_t;
 
 typedef struct {
     int         fps;
     int         screenWidth;
     int         screenHeight;
-    player_t    currentPlayer;
-    players_t   otherPlayers;
+    Player      currentPlayer;
     Map         map;
+    Player      otherPlayers[3];
 } Game;
 
 void GameInit(Game *game);

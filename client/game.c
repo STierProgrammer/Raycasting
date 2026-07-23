@@ -3,15 +3,25 @@
 #include "utils.h"
 #include "mutils.h"
 #include "game/map.h"
+#include "game/player.h"
+#include "vec.h"
 
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #define NO_DEBUG 1
+
+#define PLAYER_NAMELEN_MAX  32
 
 void GameInit(Game *game)
 {
     printfln("Enter your game name: ");
-    fgets(game->currentPlayer.name, 32, stdin);
+
+    char *name = malloc(PLAYER_NAMELEN_MAX + 1);
+    fgets(name, PLAYER_NAMELEN_MAX, stdin);
+    name[PLAYER_NAMELEN_MAX] = 0;
+    PlayerCreate(&game->currentPlayer, vec2(50, 50), vec2(1, 0), name);
 #if NO_DEBUG
     SetTraceLogLevel(LOG_NONE);
 #endif
@@ -27,6 +37,9 @@ void GameInit(Game *game)
     InitAudioDevice();
     DisableCursor();
     SetTargetFPS(game->fps);
+
+    memset(game->otherPlayers, 0, sizeof(game->otherPlayers)/sizeof(*game->otherPlayers));    
+
 }
 
 void GameDraw(Game *game)
@@ -34,4 +47,16 @@ void GameDraw(Game *game)
     BeginDrawing();
         ClearBackground(GRAY);
     EndDrawing();
+}
+
+void GameClose(Game *game)
+{
+    CloseWindow();
+}
+
+void GameUpdate(Game *game)
+{
+    PlayerUpdate(&game->currentPlayer);    
+    PlayerDraw(&game->currentPlayer);
+    GameDraw(game);
 }
