@@ -11,6 +11,7 @@ typedef struct {
     Player      currentPlayer;
     Map         map;
     Player      otherPlayers[3];
+    int         currentClientFd;
 } Game;
 
 void GameInit(Game *game);
